@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Processor</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    <script src="https://cdn.tiny.cloud/1/cg09wsf15duw9av3kj5g8d8fvsxvv3uver3a95xyfm1ngtq4/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://unpkg.com/tesseract.js@v4.1.1/dist/tesseract.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>PDF Processor</h1>
+        
+        <!-- Step 1: PDF Upload -->
+        <div class="upload-section">
+            <input type="file" id="pdfUpload" accept="application/pdf">
+        </div>
+
+        <!-- Step 2: PDF Preview -->
+        <div id="previewContainer"></div>
+
+        <!-- Step 3: Split Controls -->
+        <div id="splitOptions" style="display: none;" class="control-section">
+            <label for="startPage">Start Page:</label>
+            <input type="number" id="startPage" min="1">
+            <label for="endPage">End Page:</label>
+            <input type="number" id="endPage" min="1">
+            <button id="splitPdf">Split PDF</button>
+        </div>
+
+        <!-- Step 4: OCR Controls -->
+        <div id="ocrControls" style="display: none;" class="control-section">
+            <button id="ocrButton">Perform OCR</button>
+        </div>
+
+        <!-- OCR Results -->
+        <div id="ocrTextPreview" class="preview-section"></div>
+
+        <!-- Step 5: Notes Generation -->
+        <div id="notesControls" style="display: none;" class="control-section">
+            <button id="notesButton">Generate Notes</button>
+        </div>
+
+        <!-- Notes Editor -->
+        <div id="notesEditorContainer" style="display: none;">
+            <div class="editor-header">
+                <h2>Edit Notes</h2>
+                <button id="saveNotesButton">Save Notes</button>
+            </div>
+            <div id="notesEditor"></div>
+        </div>
+
+        <!-- Loading Indicator -->
+        <div class="loading" id="loadingIndicator">Processing... Please wait...</div>
+    </div>
+
+    <script src="previewscript.js" type="module"></script>
+</body>
+</html>

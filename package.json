@@ -1,0 +1,14 @@
+{
+  "name": "pdf-processor",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "servor --reload",
+    "start": "servor --reload"
+  },
+  "dependencies": {
+    "servor": "^4.0.2",
+    "pdf-lib": "^1.17.1",
+    "tesseract.js": "^4.1.1"
+  }
+}
