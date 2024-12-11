@@ -6,12 +6,15 @@ body {
 }
 
 .container {
-    max-width: 1000px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 20px;
     background: #ffffff;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    gap: 20px;
+    min-height: calc(100vh - 80px);
 }
 
 h1 {
@@ -20,9 +23,39 @@ h1 {
     margin-bottom: 30px;
 }
 
+/* Left sidebar controls */
+.controls-sidebar {
+    flex: 0 0 25%;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.control-section {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.control-section:not(:last-child) {
+    margin-bottom: 20px;
+}
+
+/* Main content area */
+.main-content {
+    flex: 1;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
 .upload-section {
     margin-bottom: 20px;
-    text-align: center;
 }
 
 #previewContainer {
@@ -33,7 +66,7 @@ h1 {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     overflow-x: hidden;
     overflow-y: auto;
-    max-height: 600px;
+    max-height: calc(100vh - 200px);
 }
 
 canvas {
@@ -44,12 +77,14 @@ canvas {
     border-radius: 4px;
 }
 
-.control-section {
-    margin: 20px 0;
-    padding: 15px;
-    background: #f8f9fa;
-    border-radius: 8px;
-    text-align: center;
+input[type="file"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
 input[type="number"] {
@@ -61,13 +96,16 @@ input[type="number"] {
 }
 
 button {
+    width: 100%;
     background-color: #007bff;
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 12px 20px;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.2s;
+    margin-bottom: 10px;
+    font-weight: 600;
 }
 
 button:hover {
@@ -75,15 +113,16 @@ button:hover {
 }
 
 .preview-section {
-    margin: 20px 0;
+    height: 100%;
     padding: 15px;
     background: #fff;
     border-radius: 8px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
 }
 
 #notesEditorContainer {
-    margin-top: 30px;
+    height: 100%;
 }
 
 .editor-header {
@@ -91,6 +130,9 @@ button:hover {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 15px;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 4px;
 }
 
 .loading {
@@ -114,12 +156,51 @@ pre {
     border-radius: 4px;
     font-size: 14px;
     line-height: 1.5;
+    max-height: calc(100vh - 250px);
+    overflow-y: auto;
 }
 
 #saveNotesButton {
     background-color: #28a745;
+    margin-top: 10px;
 }
 
 #saveNotesButton:hover {
     background-color: #218838;
+}
+
+/* Labels */
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Split controls */
+.split-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.page-inputs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.page-input-group {
+    flex: 1;
+}
+
+/* Hide controls initially */
+#splitOptions, #ocrControls, #notesControls {
+    display: none;
+}
+
+/* Active sections */
+.active-section {
+    display: block !important;
 }
