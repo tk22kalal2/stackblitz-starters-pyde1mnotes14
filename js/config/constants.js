@@ -1,6 +1,6 @@
 export const API_KEYS = {
     VISION_API: 'AIzaSyDnEZ6sNwbxVVVeQoTpEL22fep39b4I0oc',
-    GEMINI_API: 'AIzaSyA6crBKIIcjw6WbG-jaobiswZXnpxYJ0T4',
+    GEMINI_API: 'AIzaSyDtN9czLTfmVm3FvC-MzL3fdbqIiHMGRxo',
     TINYMCE_API: 'cg09wsf15duw9av3kj5g8d8fvsxvv3uver3a95xyfm1ngtq4'
 };
 
