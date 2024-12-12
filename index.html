@@ -23,7 +23,7 @@
             </div>
 
             <!-- Step 2: Split Controls -->
-            <div id="splitOptions" class="control-section">
+            <div id="splitOptions" class="control-section" style="display: none;">
                 <div class="split-controls">
                     <div class="page-inputs">
                         <div class="page-input-group">
@@ -40,12 +40,12 @@
             </div>
 
             <!-- Step 3: OCR Controls -->
-            <div id="ocrControls" class="control-section">
+            <div id="ocrControls" class="control-section" style="display: none;">
                 <button id="ocrButton">Perform OCR</button>
             </div>
 
             <!-- Step 4: Notes Controls -->
-            <div id="notesControls" class="control-section">
+            <div id="notesControls" class="control-section" style="display: none;">
                 <button id="notesButton">Generate Notes</button>
                 <button id="saveNotesButton">Save Notes</button>
             </div>
@@ -53,14 +53,10 @@
 
         <!-- Right Main Content Area -->
         <div class="main-content">
-            <!-- PDF Preview -->
+            <!-- Single Container for All Views -->
             <div id="previewContainer" class="preview-section"></div>
-
-            <!-- OCR Results -->
-            <div id="ocrTextPreview" class="preview-section"></div>
-
-            <!-- Notes Editor -->
-            <div id="notesEditorContainer" class="preview-section">
+            <div id="ocrTextPreview" class="preview-section" style="display: none;"></div>
+            <div id="notesEditorContainer" class="preview-section" style="display: none;">
                 <div id="notesEditor"></div>
             </div>
         </div>
