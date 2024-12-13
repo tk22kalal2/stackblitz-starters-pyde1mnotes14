@@ -5,19 +5,17 @@ export async function callVisionAPI(imageContent) {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      requests: [
-        {
-          image: { content: imageContent },
-          features: [{ type: "TEXT_DETECTION" }]
-        }
-      ]
+      requests: [{ 
+        image: { content: imageContent }, 
+        features: [{ type: "TEXT_DETECTION" }] 
+      }]
     })
   });
-
+  
   if (!response.ok) {
     throw new Error(`Vision API error: ${response.statusText}`);
   }
-
+  
   return response.json();
 }
 
@@ -27,29 +25,31 @@ export async function callGeminiAPI(text) {
   }
 
   const prompt = {
-    contents: [
-      {
-        parts: [
-          {
-            text: `Transform the following text into detailed, well-structured notes. Maintain the original content's depth while making it easier to understand. Use clear explanations and simple language where possible:
+    contents: [{
+      parts: [{
+        text: `Transform the following text into detailed, well-structured notes. Maintain the original content's depth while making it easier to understand. Use clear explanations and simple language where possible, but keep all important information:
 
 ${text}
 
 Guidelines for notes generation:
+- Keep maximum information from the source text
 - Maintain the original content's depth and detail
 - Use clear section headings with <h2> tags
 - Break down complex concepts into digestible parts
 - Use bullet points (<ul> and <li>) for better readability
 - Highlight key terms with <strong> tags
-- Explain hard terms in simpler language where needed
-- Keep maximum information from the source text
+- Explain Difficult terms in simpler language using brackets '()' 
 - Organize content logically with proper hierarchy
 - Use examples where they help clarify concepts
+- Keep formulas, cycles, flowcharts, tables etc as it is
 - Include all relevant details, dates, numbers, and specific information`
-          }
-        ]
-      }
-    ]
+      }]
+    }],
+    generationConfig: {
+      temperature: 0.5,
+      topK: 40,
+      topP: 0.9 // Increased to allow for more detailed output
+    }
   };
 
   const response = await fetch(`${API_ENDPOINTS.GEMINI}?key=${API_KEYS.GEMINI_API}`, {
@@ -57,16 +57,16 @@ Guidelines for notes generation:
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(prompt)
   });
-
+  
   if (!response.ok) {
     throw new Error(`Gemini API error: ${response.statusText}`);
   }
-
+  
   const data = await response.json();
   if (!data.candidates?.[0]?.content?.parts?.[0]?.text) {
     throw new Error('Invalid response from Gemini API');
   }
-
+  
   return formatGeminiResponse(data.candidates[0].content.parts[0].text);
 }
 
