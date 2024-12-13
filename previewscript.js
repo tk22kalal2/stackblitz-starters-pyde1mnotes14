@@ -1,6 +1,8 @@
 let pdfDoc = null;
 const pdfUpload = document.getElementById('pdfUpload');
 const previewContainer = document.getElementById('previewContainer');
+const ocrTextPreview = document.getElementById('ocrTextPreview');
+const notesEditorContainer = document.getElementById('notesEditorContainer');
 const splitOptions = document.getElementById('splitOptions');
 const startPage = document.getElementById('startPage');
 const endPage = document.getElementById('endPage');
@@ -10,8 +12,6 @@ const ocrControls = document.getElementById('ocrControls');
 const notesButton = document.getElementById('notesButton');
 const notesControls = document.getElementById('notesControls');
 const loadingIndicator = document.getElementById('loadingIndicator');
-const notesEditorContainer = document.getElementById('notesEditorContainer');
-const ocrTextPreview = document.getElementById('ocrTextPreview');
 
 import { performOCR } from './js/services/ocrService.js';
 import { generateNotes } from './js/services/notesService.js';
@@ -30,6 +30,19 @@ tinymce.init({
     readonly: false
 });
 
+// Function to manage preview containers visibility
+function showOnlyContainer(containerToShow) {
+    // Hide all containers first
+    previewContainer.style.display = 'none';
+    ocrTextPreview.style.display = 'none';
+    notesEditorContainer.style.display = 'none';
+
+    // Show the specified container
+    if (containerToShow) {
+        containerToShow.style.display = 'block';
+    }
+}
+
 pdfUpload.addEventListener("change", async (event) => {
     const file = event.target.files[0];
     if (file && file.type === "application/pdf") {
@@ -37,8 +50,14 @@ pdfUpload.addEventListener("change", async (event) => {
             loadingIndicator.style.display = 'block';
             const arrayBuffer = await file.arrayBuffer();
             pdfDoc = await pdfjsLib.getDocument(arrayBuffer).promise;
+            
+            // Show only PDF preview container
+            showOnlyContainer(previewContainer);
             await renderAllPages();
+            
             splitOptions.style.display = "block";
+            ocrControls.style.display = "none";
+            notesControls.style.display = "none";
         } catch (error) {
             console.error("Error loading PDF:", error);
             alert("Failed to load PDF. Please try again.");
@@ -88,6 +107,7 @@ splitPdf.addEventListener("click", async () => {
 
     try {
         loadingIndicator.style.display = 'block';
+        showOnlyContainer(previewContainer);
         previewContainer.innerHTML = "";
 
         for (let i = start; i <= end; i++) {
@@ -118,12 +138,10 @@ ocrButton.addEventListener("click", async () => {
             fullText += text + '\n\n';
         }
 
-        previewContainer.innerHTML = ''; // Clear previewContainer to replace it with OCR results
-        const ocrResults = document.createElement("div");
-        ocrResults.id = "ocrResults";
-        ocrResults.innerHTML = `<h2>OCR Results</h2><pre>${fullText}</pre>`;
-        previewContainer.appendChild(ocrResults);
-
+        // Show only OCR preview
+        showOnlyContainer(ocrTextPreview);
+        ocrTextPreview.innerHTML = `<h2>OCR Results</h2><pre>${fullText}</pre>`;
+        
         notesControls.style.display = "block";
         ocrButton.dataset.ocrText = fullText;
     } catch (error) {
@@ -144,9 +162,9 @@ notesButton.addEventListener("click", async () => {
     try {
         loadingIndicator.style.display = 'block';
         const notes = await generateNotes(ocrText);
-        previewContainer.innerHTML = ''; // Clear previewContainer to replace it with notes editor
-        notesEditorContainer.style.display = "block";
-        previewContainer.appendChild(notesEditorContainer);
+        
+        // Show only notes editor
+        showOnlyContainer(notesEditorContainer);
         await updateEditorContent(notes);
     } catch (error) {
         console.error("Notes Generation Error:", error);
