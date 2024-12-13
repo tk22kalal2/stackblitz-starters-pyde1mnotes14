@@ -42,15 +42,21 @@ body {
     border-radius: 8px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     overflow: hidden;
+    position: relative;
 }
 
 .preview-section {
     height: 100%;
+    width: 100%;
     padding: 15px;
     background: #fff;
     border-radius: 8px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
 }
 
 /* PDF Preview */
@@ -60,6 +66,28 @@ body {
     max-width: 100%;
     border: 1px solid #ddd;
     border-radius: 4px;
+}
+
+/* OCR Preview */
+#ocrTextPreview {
+    display: none;
+}
+
+#ocrTextPreview pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Notes Editor */
+#notesEditorContainer {
+    display: none;
+    height: 100%;
 }
 
 /* Form Controls */
@@ -98,6 +126,14 @@ button:hover {
     background-color: #0056b3;
 }
 
+#saveNotesButton {
+    background-color: #28a745;
+}
+
+#saveNotesButton:hover {
+    background-color: #218838;
+}
+
 /* Loading Indicator */
 .loading {
     display: none;
@@ -110,30 +146,6 @@ button:hover {
     color: white;
     border-radius: 8px;
     z-index: 1000;
-}
-
-/* OCR Results */
-#ocrTextPreview pre {
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    background: #f8f9fa;
-    padding: 15px;
-    border-radius: 4px;
-    font-size: 14px;
-    line-height: 1.5;
-}
-
-/* Notes Editor */
-#notesEditorContainer {
-    height: 100%;
-}
-
-#saveNotesButton {
-    background-color: #28a745;
-}
-
-#saveNotesButton:hover {
-    background-color: #218838;
 }
 
 /* Split Controls */
