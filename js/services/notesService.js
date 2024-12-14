@@ -13,22 +13,23 @@ export async function generateNotes(text) {
 ${text}
 
 Guidelines for notes generation:
+- Keep maximum information from the source text
 - Maintain the original content's depth and detail
 - Use clear section headings with <h2> tags
 - Break down complex concepts into digestible parts
 - Use bullet points (<ul> and <li>) for better readability
 - Highlight key terms with <strong> tags
-- Explain technical terms in simpler language where needed
-- Keep all important information from the source text
+- Explain Difficult terms in simpler language using brackets '()' 
 - Organize content logically with proper hierarchy
 - Use examples where they help clarify concepts
+- Keep formulas, cycles, flowcharts, tables etc as it is
 - Include all relevant details, dates, numbers, and specific information`
       }]
     }],
     generationConfig: {
-      temperature: 0.2,
+      temperature: 0.5,
       topK: 40,
-      topP: 0.9
+      topP: 0.9 // Increased to allow for more detailed output
     }
   };
 
