@@ -17,6 +17,7 @@ export const editorConfig = {
     'Book Antiqua=book antiqua,palatino;' +
     'Comic Sans MS=comic sans ms,sans-serif;' +
     'Courier New=courier new,courier;' +
+    'Dancing Script=dancing script,cursive;' +
     'Georgia=georgia,palatino;' +
     'Helvetica=helvetica;' +
     'Impact=impact,chicago;' +
