@@ -25,7 +25,6 @@ export async function callGeminiAPI(text) {
   }
 
   const prompt = {
-    model: "mixtral-8x7b-32768",
     contents: [{
       parts: [{
         text: `Transform the following text into detailed, well-structured notes. Maintain the original content's depth while making it easier to understand. Use clear explanations and simple language where possible, but keep all important information:
@@ -47,6 +46,7 @@ Guidelines for notes generation:
       }]
     }],
     generationConfig: {
+      model: "mixtral-8x7b-32768",
       temperature: 0.5,
       topK: 40,
       topP: 0.9 // Increased to allow for more detailed output
