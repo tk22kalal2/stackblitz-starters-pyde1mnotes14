@@ -24,7 +24,7 @@ Guidelines for notes generation:
 - Keep formulas, cycles, flowcharts, tables etc as it is
 - Include all relevant details, dates, numbers, and specific information`
     }],
-    model: "mixtral-8x7b-32768",
+    model: "llama-3.1-70b-versatile",
     temperature: 0.2,
     top_p: 0.9,
     stream: false
