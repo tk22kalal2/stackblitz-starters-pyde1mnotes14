@@ -13,7 +13,6 @@ export async function generateNotes(text) {
 ${text}
 
 Guidelines for notes generation:
-- Keep maximum information from the source text
 - Maintain the original content's depth and detail
 - Use clear section headings with <h2> tags
 - Break down complex concepts into digestible parts
