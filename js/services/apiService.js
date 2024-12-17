@@ -53,25 +53,30 @@ Guidelines for notes generation:
     }
   };
 
-  const response = await fetch(`${API_ENDPOINTS.GROQ}?key=${API_KEYS.GROQ_API}`, {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${GROQ_API}`,
-      },
-    body: JSON.stringify(prompt)
-  });
+  try {
+    const response = await fetch(`${API_ENDPOINTS.GROQ}?key=${API_KEYS.GROQ_API}`, {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${API_KEYS.GROQ_API}`,  // Corrected this line
+        },
+      body: JSON.stringify(prompt)
+    });
+
+    if (!response.ok) {
+      throw new Error(`Groq API error: ${response.statusText}`);
+    }
   
-  if (!response.ok) {
-    throw new Error(`Groq API error: ${response.statusText}`);
+    const data = await response.json();
+    if (!data.candidates?.[0]?.content?.parts?.[0]?.text) {
+      throw new Error('Invalid response from Groq API');
+    }
+    
+    return formatGroqResponse(data.candidates[0].content.parts[0].text);
+  } catch (error) {
+    console.error(error);
+    throw new Error('Failed to call Groq API');
   }
-  
-  const data = await response.json();
-  if (!data.candidates?.[0]?.content?.parts?.[0]?.text) {
-    throw new Error('Invalid response from Groq API');
-  }
-  
-  return formatGroqResponse(data.candidates[0].content.parts[0].text);
 }
 
 function formatGroqResponse(text) {
