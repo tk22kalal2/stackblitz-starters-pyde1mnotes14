@@ -6,9 +6,9 @@ export async function generateNotes(text) {
   }
 
   const prompt = {
-    contents: [{
-      parts: [{
-        text: `Transform the following text into detailed, well-structured notes. Maintain the original content's depth while making it easier to understand. Use clear explanations and simple language where possible, but keep all important information:
+    messages: [{
+      role: "user",
+      content: `Transform the following text into detailed, well-structured notes. Maintain the original content's depth while making it easier to understand. Use clear explanations and simple language where possible, but keep all important information:
 
 ${text}
 
@@ -24,35 +24,38 @@ Guidelines for notes generation:
 - Use examples where they help clarify concepts
 - Keep formulas, cycles, flowcharts, tables etc as it is
 - Include all relevant details, dates, numbers, and specific information`
-      }]
     }],
-    generationConfig: {
-      model: "mixtral-8x7b-32768",
-      temperature: 0.5,
-      topK: 40,
-      topP: 0.9 // Increased to allow for more detailed output
-    }
+    model: "mixtral-8x7b-32768",
+    temperature: 0.5,
+    max_tokens: 4096,
+    top_p: 0.9,
+    stream: false
   };
 
-  const response = await fetch(`${API_ENDPOINTS.GROQ}?key=${API_KEYS.GROQ_API}`, {
-    method: "POST",
-    headers: {
+  try {
+    const response = await fetch(API_ENDPOINTS.GROQ, {
+      method: "POST",
+      headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${GROQ_API}`,
+        "Authorization": `Bearer ${API_KEYS.GROQ_API}`
       },
-    body: JSON.stringify(prompt)
-  });
+      body: JSON.stringify(prompt)
+    });
+
+    if (!response.ok) {
+      throw new Error(`Groq API error: ${response.statusText}`);
+    }
   
-  if (!response.ok) {
-    throw new Error(`Groq API error: ${response.statusText}`);
+    const data = await response.json();
+    if (!data.choices?.[0]?.message?.content) {
+      throw new Error('Invalid response from Groq API');
+    }
+    
+    return formatGroqResponse(data.choices[0].message.content);
+  } catch (error) {
+    console.error('Groq API Error:', error);
+    throw new Error('Failed to generate notes: ' + error.message);
   }
-  
-  const data = await response.json();
-  if (!data.candidates?.[0]?.content?.parts?.[0]?.text) {
-    throw new Error('Invalid response from Groq API');
-  }
-  
-  return formatGroqResponse(data.candidates[0].content.parts[0].text);
 }
 
 function formatGroqResponse(text) {
