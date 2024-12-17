@@ -32,7 +32,6 @@ export async function callGroqAPI(text) {
 ${text}
 
 Guidelines for notes generation:
-- Keep maximum information from the source text
 - Maintain the original content's depth and detail
 - Use clear section headings with <h2> tags
 - Break down complex concepts into digestible parts
@@ -45,7 +44,7 @@ Guidelines for notes generation:
 - Include all relevant details, dates, numbers, and specific information`
     }],
     model: "mixtral-8x7b-32768",
-    temperature: 1,
+    temperature: 0.2,
     top_p: 0.9,
     stream: false
   };
