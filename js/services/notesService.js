@@ -26,8 +26,8 @@ Guidelines for notes generation:
       }]
     }],
     generationConfig: {
-      temperature: 0.2,
-      topK: 40,
+      temperature: 1,
+      topK: 30,
       topP: 0.9
     }
   };
