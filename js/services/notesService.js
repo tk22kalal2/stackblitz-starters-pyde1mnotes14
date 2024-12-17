@@ -34,25 +34,25 @@ Guidelines for notes generation:
     }
   };
 
-  const response = await fetch(`${API_ENDPOINTS.GEMINI}?key=${API_KEYS.GEMINI_API}`, {
+  const response = await fetch(`${API_ENDPOINTS.GROQ}?key=${API_KEYS.GROQ_API}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(prompt)
   });
   
   if (!response.ok) {
-    throw new Error(`Gemini API error: ${response.statusText}`);
+    throw new Error(`Groq API error: ${response.statusText}`);
   }
   
   const data = await response.json();
   if (!data.candidates?.[0]?.content?.parts?.[0]?.text) {
-    throw new Error('Invalid response from Gemini API');
+    throw new Error('Invalid response from Groq API');
   }
   
-  return formatGeminiResponse(data.candidates[0].content.parts[0].text);
+  return formatGroqResponse(data.candidates[0].content.parts[0].text);
 }
 
-function formatGeminiResponse(text) {
+function formatGroqResponse(text) {
   return text
     .replace(/\n{3,}/g, '\n\n')
     .replace(/^# (.*$)/gm, '<h1>$1</h1>')
