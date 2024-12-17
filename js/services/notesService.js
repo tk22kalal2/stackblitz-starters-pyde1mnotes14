@@ -36,7 +36,10 @@ Guidelines for notes generation:
 
   const response = await fetch(`${API_ENDPOINTS.GROQ}?key=${API_KEYS.GROQ_API}`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${GROQ_API}`,
+      },
     body: JSON.stringify(prompt)
   });
   
