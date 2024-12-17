@@ -46,7 +46,6 @@ Guidelines for notes generation:
     }],
     model: "mixtral-8x7b-32768",
     temperature: 0.5,
-    max_tokens: 4096,
     top_p: 0.9,
     stream: false
   };
