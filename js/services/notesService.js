@@ -26,7 +26,7 @@ Guidelines for notes generation:
 - Include all relevant details, dates, numbers, and specific information`
     }],
     model: "mixtral-8x7b-32768",
-    temperature: 1,
+    temperature: 0.2,
     top_p: 0.9,
     stream: false
   };
