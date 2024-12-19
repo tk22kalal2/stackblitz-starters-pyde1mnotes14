@@ -1,5 +1,5 @@
 export const API_KEYS = {
-    VISION_API: 'AIzaSyAkUca71ka6KhkRr7ftcO4awqBmK-uZO0c',
+    VISION_API: 'AIzaSyDnEZ6sNwbxVVVeQoTpEL22fep39b4I0oc',
     GROQ_API: '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',
     TINYMCE_API: 'cg09wsf15duw9av3kj5g8d8fvsxvv3uver3a95xyfm1ngtq4'
 };
