@@ -27,7 +27,7 @@ export async function callGroqAPI(text) {
   const prompt = {
     messages: [{
       role: "user",
-      content: `Transform the following text into detailed, well-structured notes. Maintain the original content's depth while making it easier to understand. Use clear explanations and simple language where possible, but keep all important information:
+      content: `Transform the following text into detailed, well-structured point-wise notes. Maintain the original content's depth while making it easier to understand. Use clear explanations and simple language where possible:
 
 ${text}
 
