@@ -128,7 +128,7 @@ function setupSaveNotesHandler() {
     
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'processed-notes.html';
+    a.download = 'processed-notes.pdf';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
